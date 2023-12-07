@@ -1,6 +1,7 @@
 import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
+from vktools import Keyboard, ButtonColor, Text, Carousel, Element
 import requests
 import goods
 
@@ -27,7 +28,7 @@ def check_unread():
             respond.append(res)
     return respond
 
-def send_message(user_id, message, keyboard = None):
+def send_message(user_id, message, keyboard = None, carousel = None):
 
     post = {
         "user_id": user_id,
@@ -37,6 +38,8 @@ def send_message(user_id, message, keyboard = None):
 
     if keyboard != None:
         post["keyboard"] = keyboard.get_keyboard()
+    if carousel != None:
+        post["template"] = carousel.add_carousel()
     else:
         post = post
 
@@ -58,10 +61,19 @@ for event in VkLongPoll(session).listen():
                 print(1)
             elif text == "купить мерч":
                 print(2)
-                send_message(user_id, "На данный момент у нас есть такие позиции: \n")
+
                 goods_list = goods.get_current_goods()
+                elements = []
                 for good in goods_list:
-                    send_message(user_id, good['photo_link'])
-                    send_message(user_id, good["good_name"] + "\n" + good["good_description"] + "\n" + "Цена: " +str(good["good_price"]) + "₽")
+                    elements.append(Element(template_type = "open_link",
+                                            title=good["good_name"],
+                                            description = good['good_description'],
+                                            #photo_id = "-114915716_457270916",#'-'+good['photo_id'],
+                                            link = good['good_link'],
+                                            buttons = [Text("Купить с помощью VKPay", ButtonColor.PRIMARY)]
+                                            )
+                                    )
+                carousel = Carousel(elements)
+                send_message(user_id, "На данный момент у нас есть такие позиции: ", carousel=carousel)
         else:
             pass
