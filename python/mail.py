@@ -23,7 +23,7 @@ class Mail:
         cont.replace(change, chTo)
         self.html_content = cont
 
-    def set_content(self):
+    def set_content(self, act_link):
         self.email_dir = config.MAIL_CONTENT
         f = open(self.email_dir, "r")
         self.html_content = f.read()
@@ -34,7 +34,7 @@ class Mail:
         self.msg['From'] = self.sendInfo["From"]
         self.msg['To'] = self.sendInfo["From"]
         self.msg.add_header('Content-Type', 'text/html')
-        self.msg.set_payload(config.EMAIL_CONTENT)
+        self.msg.set_payload(config.EMAIL_CONTENT.replace("https://QWERTY_DHHAERYDJRfffgfg.com", act_link))
 
         print(self.msg.as_string())
 
