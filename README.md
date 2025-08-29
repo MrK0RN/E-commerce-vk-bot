@@ -14,17 +14,18 @@
 ## 🏗️ Архитектура проекта
 
 ```
-vk_merch_bot/
-├── main.py              # Главный обработчик бота
-├── config.py            # Конфигурационные параметры
-├── methods.py           # Методы работы с VK API
-├── mysql.py            # Работа с MySQL базой данных
-├── mail.py             # Отправка email-уведомлений
-├── goods.py            # Управление товарами
-├── auther.py           # Генерация ключей авторизации
-├── DB_SQL.sql          # Схема базы данных
-├── email-confirmation.html  # HTML шаблон письма
-└── README.md           # Документация
+E-commerce-vk-bot/
+  python/
+    ├── main.py              # Главный обработчик бота
+    ├── config.py            # Конфигурационные параметры
+    ├── methods.py           # Методы работы с VK API
+    ├── mysql.py            # Работа с MySQL базой данных
+    ├── mail.py             # Отправка email-уведомлений
+    ├── goods.py            # Управление товарами
+    ├── auther.py           # Генерация ключей авторизации
+    ├── email-confirmation.html  # HTML шаблон письма
+  ├── DB_SQL.sql          # Схема базы данных
+  └── README.md           # Документация
 ```
 
 ## ⚙️ Установка и настройка
